@@ -1,0 +1,8 @@
+requests
+beautifulsoup4
+playwright
+crewai
+langchain
+langchain-openai
+python-dotenv
+telebot

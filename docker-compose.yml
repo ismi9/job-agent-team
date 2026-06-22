@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  job-agent-team:
+    build: .
+    container_name: job-agent-team
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs
+      - ./.data:/app/.data
+    # Для headless режиму
+    environment:
+      - DISPLAY=:99
+    # Якщо потрібно більше ресурсів
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1.0'
+    #       memory: 2G
