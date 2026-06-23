@@ -26,7 +26,7 @@
 ## Розширення
 - Додайте реальний scraping з Playwright/Selenium
 - Інтегруйте CrewAI для розумніших агентів
-- Налаштуйте Telegram-бота для керування
+- **Telegram сповіщення про помилки** — вже налаштовано!
 - Для виплат — TON Wallet API
 
 Система готова до розширення!
@@ -53,6 +53,18 @@ nano .env
 docker-compose up --build -d
 ```
 
+**Telegram сповіщення:**
+Система тепер надсилає:
+- 🚨 **Повідомлення про помилки** (з traceback)
+- ✅ **Повідомлення про успіх** (кількість завдань, перспективні вакансії)
+
+**Налаштування:**
+- Створіть бота через [@BotFather](https://t.me/BotFather)
+- Отримайте `TELEGRAM_BOT_TOKEN`
+- Надішліть будь-яке повідомлення боту → отримайте `TELEGRAM_CHAT_ID` через https://api.telegram.org/bot<TOKEN>/getUpdates
+
+Додайте ці ключі у `.env` файл.
+
 ### 3. Перегляд логів
 ```bash
 docker logs -f job-agent-team
@@ -67,3 +79,16 @@ docker-compose up --build -d
 
 ### 5. Автозапуск при перезавантаженні
 Docker-compose з `restart: unless-stopped` робить це автоматично.
+
+### 6. Cron — регулярний запуск
+Система тепер використовує **cron** всередині Docker:
+
+- Запуск кожні **30 хвилин** (налаштовується у `cronjob`)
+- Логи: `./logs/cron.log`
+- Змінити інтервал: відредагуйте `cronjob` і перебудуйте контейнер
+
+```bash
+docker-compose down
+docker-compose up --build -d
+docker-compose logs -f
+```

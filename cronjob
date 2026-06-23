@@ -1,0 +1,7 @@
+# Job Agent Team - регулярний запуск кожні 30 хвилин
+# RUN_INTERVAL_MINUTES з .env
+
+*/30 * * * * cd /app && python orchestrator.py >> /app/logs/cron.log 2>&1
+
+# Або щогодини:
+# 0 * * * * cd /app && python orchestrator.py >> /app/logs/cron.log 2>&1

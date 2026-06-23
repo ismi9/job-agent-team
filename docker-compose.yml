@@ -10,6 +10,7 @@ services:
     volumes:
       - ./logs:/app/logs
       - ./.data:/app/.data
+      - /etc/localtime:/etc/localtime:ro  # Для правильного часу в cron
     # Для headless режиму
     environment:
       - DISPLAY=:99

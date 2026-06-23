@@ -45,5 +45,12 @@ EXPOSE 8080
 ENV PYTHONUNBUFFERED=1
 ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 
-# Точка входу
-CMD ["python", "orchestrator.py"]
+# Встановлюємо cron
+RUN apt-get update && apt-get install -y cron && rm -rf /var/lib/apt/lists/*
+
+# Копіюємо cron файл
+COPY cronjob /etc/cron.d/job-agent-cron
+RUN chmod 0644 /etc/cron.d/job-agent-cron && crontab /etc/cron.d/job-agent-cron
+
+# Точка входу — запускаємо cron
+CMD ["sh", "-c", "cron && tail -f /dev/null"]
